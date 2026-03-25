@@ -1,65 +1,42 @@
-import Image from "next/image";
-
+import LandingPage from "../components/Home/page";
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className="p-10 w-full">
+      <div className="max-w-[1440px] mx-auto flex justify-center pt-5">
+        <div className="max-w-[960px] flex flex-col gap-5 py-5">
+          <h1 className="text-[#0D141C] text-center text-3xl font-semibold">
+            Welcome to ConnectUni
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="text-center text-[#0D141C]">
+            ConnectUni is a platform designed to bridge the gap between
+            university students and real-world projects and internships. Whether
+            you're a student looking for opportunities or a company seeking
+            talented individuals, ConnectUni has you covered.
           </p>
+
+          <LandingPage
+            image="/PictureOne.png"
+            imageInfo="Student Image"
+            width={460}
+            height={250}
+            headingText="For Students"
+            paragraphText="Explore a wide range of projects and internships tailored to your skills and interests. Build your portfolio, gain valuable experience, and connect with leading companies."
+            buttonText="Create Student Profile"
+            buttonUrl="/signup"
+          />
+            <LandingPage
+            image="/PictureTwo.png"
+            imageInfo="Company Image"
+            width={460}
+            height={250}
+            headingText="For Companies"
+            paragraphText="Find talented students to work on your projects and internships. Post opportunities, review applications, and connect with the next generation of professionals."
+            buttonText="Create Company Profile"
+            buttonUrl="/signup"
+          />
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      </div>
+    </main>
   );
 }
