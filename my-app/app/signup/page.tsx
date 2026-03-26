@@ -1,21 +1,34 @@
 "use client";
-import { useState } from "react";
+import React from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Eye, EyeOff } from "lucide-react";
-const page = () => {
+import { useSearchParams } from "next/navigation";
+import Link from "next/link";
+const SignUp = () => {
+  const searchParams = useSearchParams();
+  const role = searchParams.get("role");
+  console.log("Role",role);
   const [formData, setFormData] = useState({
     profile: "",
     email: "",
     university: "",
+    company: "",
     degreeProgram: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(false);
+  const [checkRole, setCheckRole] = useState<string>("");
+  const [showPassword, setShowPassword] = useState<boolean>(false);
   const [errors, setErrors] = useState({
   email: "",
   password: "",
 });
-const handleChange = (e) => {
+useEffect(()=>{
+  setCheckRole(role!);
+  
+},[role])
+console.log("Check Role", checkRole);
+const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
   const { name, value } = e.target;
 
   setFormData({
@@ -30,6 +43,7 @@ const handleChange = (e) => {
       email: isValidEmail(value) ? "" : "Invalid email format",
     }));
   }
+  
 
   if (name === "password") {
     setErrors((prev) => ({
@@ -53,6 +67,7 @@ const isFormValid =
   formData.profile &&
   formData.email &&
   formData.university &&
+  formData.company &&
   formData.degreeProgram &&
   formData.password &&
   !errors.email &&
@@ -68,7 +83,7 @@ const isFormValid =
           </p>
 
           <button className="text-[#333333] border rounded-[32px] text-[18px] md:text-[22px] px-6 md:px-[140px] py-[10px] mt-6 hover:bg-gray-200 font-poppins w-full md:w-auto">
-            Join as Hiring Manager
+            {`Joining as a ${role}`}
           </button>
 
           <div className="flex gap-4 items-center justify-center my-5 w-full">
@@ -91,7 +106,7 @@ const isFormValid =
 
           <div className="w-full max-w-[592px] flex flex-col gap-[40px] mt-4">
             <p className="text-center text-[#333333] text-[16px] md:text-[18px] font-medium font-poppins">
-              Sign up with your University email address as a student
+              {role == 'student' ? 'Sign up with your University email address as a student' : 'Sign up with your company email address as a hiring manager'}
             </p>
 
             <form className="w-full max-w-[578px] flex flex-col gap-2">
@@ -123,18 +138,18 @@ const isFormValid =
 )}
 
               <label className="text-[#666666] text-[16px] font-poppins mt-4">
-                University
+                {checkRole == 'student' ? 'University' : 'Company'}
               </label>
               <input
                 type="text"
-                name="university"
-                value={formData.university}
+                name={checkRole == 'student' ? 'University' : 'Company'}
+                value={checkRole == 'student' ? formData.university : formData.company}
                 onChange={handleChange}
-                placeholder="Enter your university name"
+                placeholder={`Enter your ${checkRole == 'student' ? 'University' : 'Company'} name`}
                 className="w-full border border-[#cac9c9] rounded-[12px] px-5 py-4"
               />
-
-              <label className="text-[#666666] text-[16px] font-poppins mt-4">
+              {checkRole == 'student' ? (
+                <>              <label className="text-[#666666] text-[16px] font-poppins mt-4">
                 Degree Program
               </label>
               <input
@@ -145,6 +160,9 @@ const isFormValid =
                 placeholder="Enter your degree Program name"
                 className="w-full border border-[#cac9c9] rounded-[12px] px-5 py-4"
               />
+              </>
+              ): null
+              }
               <div className="flex justify-between items-center mt-4">
                 <label className="text-[#666666] text-[16px] font-poppins">
                   Password
@@ -232,7 +250,9 @@ const isFormValid =
 
               <p className="text-center font-poppins text-[16px]">
                 Already have an account?{" "}
+                <Link href="/signin">
                 <span className="underline underline-offset-4">Login</span>
+                </Link>
               </p>
             </form>
           </div>
@@ -242,4 +262,4 @@ const isFormValid =
   );
 };
 
-export default page;
+export default SignUp;
